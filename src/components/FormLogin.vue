@@ -8,7 +8,7 @@
         </p>
   
         <form @submit.prevent="login">
-          <input type="email" v-model="correo" placeholder="Correo" required />
+          <input v-focus type="email" v-model="correo" placeholder="Correo" required />
           <input type="password" v-model="clave" placeholder="Contraseña" required />
           <button type="submit">Ingresar</button><br />
           <a href="#" class="olvide">¿Olvidó contraseña?</a>
@@ -25,18 +25,22 @@
   const correo = ref('')
   const clave = ref('')
   const router = useRouter()
+
+  const vFocus = {
+    mounted: (el) => el.focus()
+  }
   
   function login() {
     if (correo.value === 'admin@gmail.com' && clave.value === '1234') {
       localStorage.setItem('usuarioLogueado', correo.value)
-      router.push('/materia')
+      router.push('/materias')
       return
     }
     let usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]')
     const user = usuarios.find(u => u.correo === correo.value && u.clave === clave.value)
     if (user) {
       localStorage.setItem('usuarioLogueado', correo.value)
-      router.push('/materia')
+      router.push('/materias')
     } else {
       alert('Credenciales incorrectas')
     }
@@ -50,12 +54,13 @@
 <style scoped>
 /* ------------------ LOGIN ------------------ */
 .login-container {
-  display: absolute;
-  margin-left: 550px;
-  width: 600px;
-  /* justify-content: center;
-  align-items: center; */
-  /* height: calc(100vh - 60px); */
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 0;
 }
 
 .registro {
@@ -75,6 +80,7 @@
   text-align: center;
   width: 100%;
   max-width: 400px;
+  box-sizing: border-box;
 }
 
 .login-box form {
@@ -100,4 +106,37 @@
   text-decoration: none;
 }
 
-</style> 
+/* Responsive styles */
+@media (max-width: 600px) {
+  .login-container {
+    padding: 10px;
+    min-height: 100vh;
+    width: 100vw;
+    margin: 0;
+  }
+  .login-box {
+    padding: 20px 10px;
+    max-width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .uleam-logo {
+    font-size: 26px;
+  }
+  .uleam-sub {
+    font-size: 12px;
+  }
+  .login-box form input,
+  .login-box form button {
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 350px) {
+  .login-box {
+    padding: 8px 2px;
+  }
+}
+</style>

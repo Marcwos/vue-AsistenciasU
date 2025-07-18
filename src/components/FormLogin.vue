@@ -8,10 +8,11 @@
         </p>
   
         <form @submit.prevent="login">
-          <input type="text" v-model="usuario" placeholder="Nombre usuario" required />
+          <input type="email" v-model="correo" placeholder="Correo" required />
           <input type="password" v-model="clave" placeholder="Contraseña" required />
           <button type="submit">Ingresar</button><br />
           <a href="#" class="olvide">¿Olvidó contraseña?</a>
+          <a href="#" class="registro" @click.prevent="goToRegister">¿No tienes cuenta? Regístrate</a>
         </form>
       </div>
     </main>
@@ -21,17 +22,28 @@
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
   
-  const usuario = ref('')
+  const correo = ref('')
   const clave = ref('')
   const router = useRouter()
   
   function login() {
-    if (usuario.value === 'admin' && clave.value === '1234') {
-      localStorage.setItem('usuarioLogueado', usuario.value)
+    if (correo.value === 'admin@gmail.com' && clave.value === '1234') {
+      localStorage.setItem('usuarioLogueado', correo.value)
+      router.push('/materia')
+      return
+    }
+    let usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]')
+    const user = usuarios.find(u => u.correo === correo.value && u.clave === clave.value)
+    if (user) {
+      localStorage.setItem('usuarioLogueado', correo.value)
       router.push('/materia')
     } else {
       alert('Credenciales incorrectas')
     }
+  }
+
+  function goToRegister() {
+    router.push('/register')
   }
 </script>
 
@@ -44,6 +56,15 @@
   /* justify-content: center;
   align-items: center; */
   /* height: calc(100vh - 60px); */
+}
+
+.registro {
+  display: inline-block;
+  margin-top: 10px;
+  color: #1976d2;
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: none;
 }
 
 .login-box {

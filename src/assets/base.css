@@ -111,7 +111,7 @@ button, .btn {
   background-color: #a51406;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], input[type="email"] {
   width: 100%;
   padding: 12px;
   margin-bottom: 12px;

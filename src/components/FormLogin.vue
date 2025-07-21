@@ -33,6 +33,8 @@
   function login() {
     if (correo.value === 'admin@gmail.com' && clave.value === '1234') {
       localStorage.setItem('usuarioLogueado', correo.value)
+      // Disparar evento para que el navbar se actualice
+      window.dispatchEvent(new Event('authStatusChanged'))
       router.push('/materias')
       return
     }
@@ -40,6 +42,8 @@
     const user = usuarios.find(u => u.correo === correo.value && u.clave === clave.value)
     if (user) {
       localStorage.setItem('usuarioLogueado', correo.value)
+      // Disparar evento para que el navbar se actualice
+      window.dispatchEvent(new Event('authStatusChanged'))
       router.push('/materias')
     } else {
       alert('Credenciales incorrectas')

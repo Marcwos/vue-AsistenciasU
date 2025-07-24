@@ -10,8 +10,11 @@
 
     <!-- Navegación tipo pestañas cuando el usuario está logueado -->
     <nav v-if="isLoggedIn" class="nav-tabs">
-      <RouterLink to="/materias" class="tab-link active" :class="{ active: currentSection === 'materias' }">
+      <RouterLink to="/materias" class="tab-link" :class="{ active: currentSection === 'materias' }">
         Materias
+      </RouterLink>
+      <RouterLink to="/curso/:nombre" class="tab-link" :class="{ active: currentSection === 'curso' }">
+        Cursos
       </RouterLink>
       <!-- Botón de salir -->
       <button @click="logout" class="btn-salir">
@@ -60,6 +63,8 @@ const updateCurrentSection = () => {
   const path = route.path
   if (path.includes('/materias')) {
     currentSection.value = 'materias'
+  } else if (path.includes('/curso')) {
+    currentSection.value = 'curso'
   } else {
     currentSection.value = ''
   }
@@ -195,19 +200,32 @@ watch(() => route.path, () => {
 
 /* ------------------ BOTÓN SALIR ------------------ */
 .btn-salir {
-  background-color: transparent;
+  background-color: #666;
   color: #ccc;
   border: none;
+  border-left: 1px solid #555;
+  border-radius: 0;
   padding: 0 20px;
   font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   height: 100%;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  outline: none;
+  margin: 0;
 }
 
 .btn-salir:hover {
-  background-color: #555;
+  background-color: #777;
   color: white;
+}
+
+.btn-salir:focus {
+  outline: none;
 }
 
 /* ------------------ NAVEGACIÓN NO LOGUEADO ------------------ */

@@ -13,10 +13,6 @@
       <RouterLink to="/materias" class="tab-link active" :class="{ active: currentSection === 'materias' }">
         Materias
       </RouterLink>
-      <RouterLink to="/cursos" class="tab-link" :class="{ active: currentSection === 'cursos' }">
-        Cursos
-      </RouterLink>
-      
       <!-- Botón de salir -->
       <button @click="logout" class="btn-salir">
         Salir
@@ -64,8 +60,6 @@ const updateCurrentSection = () => {
   const path = route.path
   if (path.includes('/materias')) {
     currentSection.value = 'materias'
-  } else if (path.includes('/cursos')) {
-    currentSection.value = 'cursos'
   } else {
     currentSection.value = ''
   }

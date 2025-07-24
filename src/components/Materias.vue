@@ -78,12 +78,14 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import SidebarMaterias from './SidebarMaterias.vue'
 
 const materias = ref([])
 const busqueda = ref('')
 const orden = ref('nombre')
 const sidebarOpen = ref(false)
+const router = useRouter()
 
 // Obtener usuario logueado
 const getCurrentUser = () => {
@@ -151,7 +153,7 @@ const toggleMateria = (materia) => {
 }
 
 const tomarAsistencia = (curso) => {
-  alert(`Funcionalidad de asistencia para "${curso.nombre}" próximamente...`)
+  router.push({ name: 'curso', params: { nombre: curso.nombre } })
 }
 
 onMounted(() => {

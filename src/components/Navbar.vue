@@ -13,7 +13,12 @@
       <RouterLink to="/materias" class="tab-link" :class="{ active: currentSection === 'materias' }">
         Materias
       </RouterLink>
-      <RouterLink to="/curso/:nombre" class="tab-link" :class="{ active: currentSection === 'curso' }">
+      <RouterLink 
+        v-if="showCursoTab" 
+        to="/curso/:nombre" 
+        class="tab-link" 
+        :class="{ active: currentSection === 'curso' }"
+      >
         Cursos
       </RouterLink>
       <!-- Botón de salir -->
@@ -40,6 +45,7 @@ const route = useRoute()
 // Estado de autenticación
 const isLoggedIn = ref(false)
 const currentSection = ref('materias') // Por defecto "materias" está activo como en la imagen
+const showCursoTab = ref(false) // Controla si mostrar la pestaña Cursos
 
 // Función para cerrar sesión
 const logout = () => {
@@ -63,10 +69,13 @@ const updateCurrentSection = () => {
   const path = route.path
   if (path.includes('/materias')) {
     currentSection.value = 'materias'
+    showCursoTab.value = false // Ocultar pestaña Cursos en vista de materias
   } else if (path.includes('/curso')) {
     currentSection.value = 'curso'
+    showCursoTab.value = true // Mostrar pestaña Cursos cuando estés en un curso
   } else {
     currentSection.value = ''
+    showCursoTab.value = false // Ocultar en otras rutas
   }
 }
 

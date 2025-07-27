@@ -7,27 +7,18 @@
           + Gestionar Materias
         </button>
       </div>
-      
+
       <div class="filtros">
-        <input
-          type="text"
-          v-model="busqueda"
-          placeholder="Buscar materia..."
-        />
+        <input type="text" v-model="busqueda" placeholder="Buscar materia..." />
         <select v-model="orden">
           <option value="nombre">Ordenar por nombre</option>
           <option value="cursos">Ordenar por cantidad de cursos</option>
         </select>
       </div>
-      
+
       <div class="grid-materias">
-        <div 
-          v-for="materia in materiasFiltradas" 
-          :key="materia.id" 
-          class="tarjeta-materia"
-          :class="{ expanded: materia.expanded }"
-          @click="toggleMateria(materia)"
-        >
+        <div v-for="materia in materiasFiltradas" :key="materia.id" class="tarjeta-materia"
+          :class="{ expanded: materia.expanded }" @click="toggleMateria(materia)">
           <div class="materia-header">
             <h3>{{ materia.nombre }}</h3>
             <div class="materia-stats">
@@ -35,17 +26,12 @@
               <span class="expand-icon" :class="{ rotated: materia.expanded }">▼</span>
             </div>
           </div>
-          
+
           <div v-if="materia.expanded" class="cursos-list">
             <div v-if="materia.cursos.length === 0" class="no-cursos">
               No hay cursos en esta materia
             </div>
-            <div 
-              v-for="curso in materia.cursos" 
-              :key="curso.id" 
-              class="curso-item"
-              @click.stop
-            >
+            <div v-for="curso in materia.cursos" :key="curso.id" class="curso-item" @click.stop>
               <div class="curso-info">
                 <h4>{{ curso.nombre }}</h4>
               </div>
@@ -55,7 +41,7 @@
             </div>
           </div>
         </div>
-        
+
         <div v-if="materiasFiltradas.length === 0" class="estado-vacio">
           <div class="icono-vacio">📚</div>
           <h3>No hay materias</h3>
@@ -66,13 +52,9 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Sidebar Component -->
-    <SidebarMaterias 
-      :is-open="sidebarOpen" 
-      @close="closeSidebar"
-      @materias-updated="handleMateriasUpdated"
-    />
+    <SidebarMaterias :is-open="sidebarOpen" @close="closeSidebar" @materias-updated="handleMateriasUpdated" />
   </main>
 </template>
 
@@ -99,7 +81,7 @@ const loadMaterias = () => {
     materias.value = []
     return
   }
-  
+
   const userKey = `materias-asistencia-${currentUser}`
   const stored = localStorage.getItem(userKey)
   if (stored) {
@@ -116,7 +98,7 @@ const saveMaterias = () => {
     console.warn('No hay usuario logueado')
     return
   }
-  
+
   const userKey = `materias-asistencia-${currentUser}`
   localStorage.setItem(userKey, JSON.stringify(materias.value))
 }
@@ -174,7 +156,7 @@ onMounted(() => {
   background-color: white;
   padding: clamp(16px, 4vw, 30px);
   border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: clamp(20px, 5vw, 90px) auto;
   min-height: 60vh;
   overflow-y: auto;
@@ -480,25 +462,25 @@ onMounted(() => {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .btn-agregar {
     width: 100%;
   }
-  
+
   .filtros {
     flex-direction: column;
   }
-  
+
   .filtros input,
   .filtros select {
     width: 100%;
     flex: none;
   }
-  
+
   .grid-materias {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
-  
+
   .curso-item {
     flex-direction: column;
     align-items: stretch;
@@ -510,18 +492,18 @@ onMounted(() => {
   .grid-materias {
     grid-template-columns: 1fr;
   }
-  
+
   .materia-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
-  
+
   .materia-stats {
     width: 100%;
     justify-content: space-between;
   }
-  
+
   .btn-asistencia {
     width: 100%;
     text-align: center;

@@ -5,22 +5,14 @@
         <h3>Gestión de Materias</h3>
         <button class="btn-close" @click="closeSidebar">×</button>
       </div>
-      
+
       <div class="sidebar-content">
         <!-- Tabs para alternar entre materias y cursos -->
         <div class="tabs">
-          <button 
-            class="tab-btn" 
-            :class="{ active: activeTab === 'materias' }"
-            @click="activeTab = 'materias'"
-          >
+          <button class="tab-btn" :class="{ active: activeTab === 'materias' }" @click="activeTab = 'materias'">
             Materias
           </button>
-          <button 
-            class="tab-btn" 
-            :class="{ active: activeTab === 'cursos' }"
-            @click="activeTab = 'cursos'"
-          >
+          <button class="tab-btn" :class="{ active: activeTab === 'cursos' }" @click="activeTab = 'cursos'">
             Cursos
           </button>
         </div>
@@ -30,13 +22,8 @@
           <MateriaForm @materia-added="handleMateriaAdded" />
           <div class="materias-list">
             <h4>Materias Existentes</h4>
-            <MateriaItem 
-              v-for="materia in materias" 
-              :key="materia.id"
-              :materia="materia"
-              @delete-materia="handleDeleteMateria"
-              @delete-curso="handleDeleteCurso"
-            />
+            <MateriaItem v-for="materia in materias" :key="materia.id" :materia="materia"
+              @delete-materia="handleDeleteMateria" @delete-curso="handleDeleteCurso" />
             <div v-if="materias.length === 0" class="empty-state">
               No hay materias creadas
             </div>
@@ -45,10 +32,7 @@
 
         <!-- Contenido de Cursos -->
         <div v-if="activeTab === 'cursos'" class="tab-content">
-          <CursoForm 
-            :materias="materias"
-            @curso-added="handleCursoAdded" 
-          />
+          <CursoForm :materias="materias" @curso-added="handleCursoAdded" />
         </div>
       </div>
     </div>
@@ -85,7 +69,7 @@ const loadMaterias = () => {
     materias.value = []
     return
   }
-  
+
   const userKey = `materias-asistencia-${currentUser}`
   const stored = localStorage.getItem(userKey)
   if (stored) {
@@ -102,7 +86,7 @@ const saveMaterias = () => {
     console.warn('No hay usuario logueado')
     return
   }
-  
+
   const userKey = `materias-asistencia-${currentUser}`
   localStorage.setItem(userKey, JSON.stringify(materias.value))
   emit('materias-updated', materias.value)
@@ -185,6 +169,7 @@ onMounted(() => {
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(0);
   }

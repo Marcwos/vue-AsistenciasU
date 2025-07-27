@@ -4,15 +4,10 @@
     <form @submit.prevent="submitForm">
       <div class="form-group">
         <label for="nombreMateria">Nombre de la Materia</label>
-        <input
-          id="nombreMateria"
-          type="text"
-          v-model="formData.nombre"
-          placeholder="Ej: Matemáticas, Historia..."
-          required
-        />
+        <input id="nombreMateria" type="text" v-model="formData.nombre" placeholder="Ej: Matemáticas, Historia..."
+          required />
       </div>
-      
+
       <div class="form-actions">
         <button type="submit" class="btn-primary" :disabled="!formData.nombre.trim()">
           Agregar Materia

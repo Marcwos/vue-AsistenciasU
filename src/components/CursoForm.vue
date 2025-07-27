@@ -4,17 +4,9 @@
     <form @submit.prevent="submitForm">
       <div class="form-group">
         <label for="materiaSelect">Seleccionar Materia</label>
-        <select
-          id="materiaSelect"
-          v-model="formData.materiaId"
-          required
-        >
+        <select id="materiaSelect" v-model="formData.materiaId" required>
           <option value="">-- Selecciona una materia --</option>
-          <option 
-            v-for="materia in materias" 
-            :key="materia.id" 
-            :value="materia.id"
-          >
+          <option v-for="materia in materias" :key="materia.id" :value="materia.id">
             {{ materia.nombre }}
           </option>
         </select>
@@ -22,23 +14,14 @@
 
       <div class="form-group">
         <label for="nombreCurso">Nombre del Curso</label>
-        <input
-          id="nombreCurso"
-          type="text"
-          v-model="formData.nombre"
-          placeholder="Ej: Curso A, Paralelo 1..."
-          required
-        />
+        <input id="nombreCurso" type="text" v-model="formData.nombre" placeholder="Ej: Curso A, Paralelo 1..."
+          required />
       </div>
 
 
-      
+
       <div class="form-actions">
-        <button 
-          type="submit" 
-          class="btn-primary" 
-          :disabled="!formData.nombre.trim() || !formData.materiaId"
-        >
+        <button type="submit" class="btn-primary" :disabled="!formData.nombre.trim() || !formData.materiaId">
           Agregar Curso
         </button>
         <button type="button" class="btn-secondary" @click="resetForm">

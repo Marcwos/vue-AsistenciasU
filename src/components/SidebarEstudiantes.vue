@@ -17,13 +17,8 @@
           <form @submit.prevent="agregarEstudiante">
             <div class="form-group">
               <label for="nombreEstudiante">Nombre del Estudiante:</label>
-              <input
-                id="nombreEstudiante"
-                type="text"
-                v-model="nuevoEstudiante.nombre"
-                placeholder="Ingresa el nombre completo"
-                required
-              />
+              <input id="nombreEstudiante" type="text" v-model="nuevoEstudiante.nombre"
+                placeholder="Ingresa el nombre completo" required />
             </div>
             <button type="submit" class="btn-agregar" :disabled="!nuevoEstudiante.nombre.trim()">
               + Agregar Estudiante
@@ -34,13 +29,9 @@
         <!-- Lista de estudiantes existentes -->
         <div class="estudiantes-section">
           <h4>Estudiantes en el curso ({{ estudiantes.length }})</h4>
-          
+
           <div class="filtro-estudiantes">
-            <input
-              type="text"
-              v-model="busquedaEstudiantes"
-              placeholder="Buscar estudiante..."
-            />
+            <input type="text" v-model="busquedaEstudiantes" placeholder="Buscar estudiante..." />
           </div>
 
           <div class="lista-estudiantes">
@@ -48,20 +39,12 @@
               <p v-if="estudiantes.length === 0">No hay estudiantes en este curso</p>
               <p v-else>No se encontraron estudiantes con ese nombre</p>
             </div>
-            
-            <div 
-              v-for="estudiante in estudiantesFiltrados" 
-              :key="estudiante.id" 
-              class="estudiante-item"
-            >
+
+            <div v-for="estudiante in estudiantesFiltrados" :key="estudiante.id" class="estudiante-item">
               <div class="estudiante-info">
                 <span class="nombre">{{ estudiante.nombre }}</span>
               </div>
-              <button 
-                class="btn-eliminar" 
-                @click="eliminarEstudiante(estudiante.id)"
-                title="Eliminar estudiante"
-              >
+              <button class="btn-eliminar" @click="eliminarEstudiante(estudiante.id)" title="Eliminar estudiante">
                 🗑️
               </button>
             </div>
@@ -113,7 +96,7 @@ const loadEstudiantes = () => {
     estudiantes.value = []
     return
   }
-  
+
   const userKey = `estudiantes-${currentUser}-${props.cursoNombre}`
   const stored = localStorage.getItem(userKey)
   if (stored) {
@@ -130,7 +113,7 @@ const saveEstudiantes = () => {
     console.warn('No hay usuario logueado')
     return
   }
-  
+
   const userKey = `estudiantes-${currentUser}-${props.cursoNombre}`
   localStorage.setItem(userKey, JSON.stringify(estudiantes.value))
   emit('estudiantes-updated', estudiantes.value)
@@ -150,7 +133,7 @@ const closeSidebar = () => {
 
 const agregarEstudiante = () => {
   const nombre = nuevoEstudiante.value.nombre.trim()
-  
+
   if (!nombre) {
     alert('Por favor ingresa un nombre válido')
     return
@@ -167,8 +150,8 @@ const agregarEstudiante = () => {
   }
 
   // Agregar nuevo estudiante
-  const nuevoId = estudiantes.value.length > 0 
-    ? Math.max(...estudiantes.value.map(e => e.id)) + 1 
+  const nuevoId = estudiantes.value.length > 0
+    ? Math.max(...estudiantes.value.map(e => e.id)) + 1
     : 1
 
   estudiantes.value.push({
@@ -180,7 +163,7 @@ const agregarEstudiante = () => {
 
   // Limpiar formulario
   nuevoEstudiante.value.nombre = ''
-  
+
   // Guardar cambios
   saveEstudiantes()
 }
@@ -473,7 +456,7 @@ onMounted(() => {
     width: 100%;
     right: -100%;
   }
-  
+
   .sidebar-content {
     padding: 20px;
   }

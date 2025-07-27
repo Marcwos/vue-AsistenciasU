@@ -4,10 +4,8 @@
 </template>
 
 <script setup>
-    import FormLogin from '../components/FormLogin.vue'
-    import Navbar from '../components/Navbar.vue'
+import FormLogin from '../components/FormLogin.vue'
+import Navbar from '../components/Navbar.vue'
 </script>
 
-<style scoped>
-    
-</style>
+<style scoped></style>

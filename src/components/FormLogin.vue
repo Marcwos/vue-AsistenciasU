@@ -1,58 +1,58 @@
 <template>
-    <main class="login-container">
-      <div class="login-box">
-        <h1 class="uleam-logo">Uleam</h1>
-        <p class="uleam-sub">
-          UNIVERSIDAD LAICA<br />
-          ELOY ALFARO DE MANABÍ
-        </p>
-  
-        <form @submit.prevent="login">
-          <input v-focus type="email" v-model="correo" placeholder="Correo" required />
-          <input type="password" v-model="clave" placeholder="Contraseña" required />
-          <button type="submit">Ingresar</button><br />
-          <a href="#" class="olvide">¿Olvidó contraseña?</a>
-          <a href="#" class="registro" @click.prevent="goToRegister">¿No tienes cuenta? Regístrate</a>
-        </form>
-      </div>
-    </main>
-  </template>
-  
+  <main class="login-container">
+    <div class="login-box">
+      <h1 class="uleam-logo">Uleam</h1>
+      <p class="uleam-sub">
+        UNIVERSIDAD LAICA<br />
+        ELOY ALFARO DE MANABÍ
+      </p>
+
+      <form @submit.prevent="login">
+        <input v-focus type="email" v-model="correo" placeholder="Correo" required />
+        <input type="password" v-model="clave" placeholder="Contraseña" required />
+        <button type="submit">Ingresar</button><br />
+        <a href="#" class="olvide">¿Olvidó contraseña?</a>
+        <a href="#" class="registro" @click.prevent="goToRegister">¿No tienes cuenta? Regístrate</a>
+      </form>
+    </div>
+  </main>
+</template>
+
 <script setup>
-  import { ref } from 'vue'
-  import { useRouter } from 'vue-router'
-  
-  const correo = ref('')
-  const clave = ref('')
-  const router = useRouter()
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-  const vFocus = {
-    mounted: (el) => el.focus()
-  }
-  
-  function login() {
-    if (correo.value === 'admin@gmail.com' && clave.value === '1234') {
-      localStorage.setItem('usuarioLogueado', correo.value)
-      // Disparar evento para que el navbar se actualice
-      window.dispatchEvent(new Event('authStatusChanged'))
-      router.push('/materias')
-      return
-    }
-    let usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]')
-    const user = usuarios.find(u => u.correo === correo.value && u.clave === clave.value)
-    if (user) {
-      localStorage.setItem('usuarioLogueado', correo.value)
-      // Disparar evento para que el navbar se actualice
-      window.dispatchEvent(new Event('authStatusChanged'))
-      router.push('/materias')
-    } else {
-      alert('Credenciales incorrectas')
-    }
-  }
+const correo = ref('')
+const clave = ref('')
+const router = useRouter()
 
-  function goToRegister() {
-    router.push('/register')
+const vFocus = {
+  mounted: (el) => el.focus()
+}
+
+function login() {
+  if (correo.value === 'admin@gmail.com' && clave.value === '1234') {
+    localStorage.setItem('usuarioLogueado', correo.value)
+    // Disparar evento para que el navbar se actualice
+    window.dispatchEvent(new Event('authStatusChanged'))
+    router.push('/materias')
+    return
   }
+  let usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]')
+  const user = usuarios.find(u => u.correo === correo.value && u.clave === clave.value)
+  if (user) {
+    localStorage.setItem('usuarioLogueado', correo.value)
+    // Disparar evento para que el navbar se actualice
+    window.dispatchEvent(new Event('authStatusChanged'))
+    router.push('/materias')
+  } else {
+    alert('Credenciales incorrectas')
+  }
+}
+
+function goToRegister() {
+  router.push('/register')
+}
 </script>
 
 <style scoped>
@@ -118,18 +118,22 @@
     width: 100vw;
     margin: 0;
   }
+
   .login-box {
     padding: 20px 10px;
     max-width: 100%;
     border-radius: 0;
     box-shadow: none;
   }
+
   .uleam-logo {
     font-size: 26px;
   }
+
   .uleam-sub {
     font-size: 12px;
   }
+
   .login-box form input,
   .login-box form button {
     font-size: 14px;

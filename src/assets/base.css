@@ -92,7 +92,8 @@ h1 {
 }
 
 /* ------------------ BOTONES E INPUTS ------------------ */
-button, .btn {
+button,
+.btn {
   background-color: #c21807;
   color: #fff;
   padding: 10px 20px;
@@ -107,11 +108,14 @@ button, .btn {
   transition: background 0.2s;
 }
 
-.btn:hover, button:hover {
+.btn:hover,
+button:hover {
   background-color: #a51406;
 }
 
-input[type="text"], input[type="password"], input[type="email"] {
+input[type="text"],
+input[type="password"],
+input[type="email"] {
   width: 100%;
   padding: 12px;
   margin-bottom: 12px;
@@ -123,8 +127,8 @@ input[type="text"], input[type="password"], input[type="email"] {
   transition: border 0.2s;
 }
 
-input[type="text"]:focus, input[type="password"]:focus {
+input[type="text"]:focus,
+input[type="password"]:focus {
   border: 1.5px solid #87d154;
   outline: none;
 }
-

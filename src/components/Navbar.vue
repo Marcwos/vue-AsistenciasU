@@ -13,12 +13,8 @@
       <RouterLink to="/materias" class="tab-link" :class="{ active: currentSection === 'materias' }">
         Materias
       </RouterLink>
-      <RouterLink 
-        v-if="showCursoTab" 
-        to="/curso/:nombre" 
-        class="tab-link" 
-        :class="{ active: currentSection === 'curso' }"
-      >
+      <RouterLink v-if="showCursoTab" to="/curso/:nombre" class="tab-link"
+        :class="{ active: currentSection === 'curso' }">
         Cursos
       </RouterLink>
       <!-- Botón de salir -->
@@ -95,14 +91,14 @@ defineExpose({
 onMounted(() => {
   checkAuthStatus()
   updateCurrentSection()
-  
+
   // Escuchar cambios en localStorage para detectar login/logout
   window.addEventListener('storage', (e) => {
     if (e.key === 'usuarioLogueado') {
       checkAuthStatus()
     }
   })
-  
+
   // También escuchar eventos personalizados para cambios en la misma pestaña
   window.addEventListener('authStatusChanged', () => {
     checkAuthStatus()
@@ -267,21 +263,21 @@ watch(() => route.path, () => {
     flex-direction: column;
     height: auto;
   }
-  
+
   .nav-tabs {
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-  
+
   .nav-tabs::-webkit-scrollbar {
     display: none;
   }
-  
+
   .tab-link {
     min-width: 120px;
   }
-  
+
   .nombre-uleam {
     font-size: 16px;
   }

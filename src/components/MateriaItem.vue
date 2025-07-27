@@ -6,18 +6,10 @@
         <span class="curso-count">{{ materia.cursos.length }} curso(s)</span>
       </div>
       <div class="materia-actions">
-        <button 
-          class="btn-expand"
-          :class="{ expanded: materia.expanded }"
-          @click.stop="toggleExpanded"
-        >
+        <button class="btn-expand" :class="{ expanded: materia.expanded }" @click.stop="toggleExpanded">
           ▼
         </button>
-        <button 
-          class="btn-delete"
-          @click.stop="confirmDelete"
-          title="Eliminar materia"
-        >
+        <button class="btn-delete" @click.stop="confirmDelete" title="Eliminar materia">
           🗑️
         </button>
       </div>
@@ -27,13 +19,8 @@
       <div v-if="materia.cursos.length === 0" class="no-cursos">
         No hay cursos en esta materia
       </div>
-      <CursoItem
-        v-for="curso in materia.cursos"
-        :key="curso.id"
-        :curso="curso"
-        :materia-id="materia.id"
-        @delete-curso="handleDeleteCurso"
-      />
+      <CursoItem v-for="curso in materia.cursos" :key="curso.id" :curso="curso" :materia-id="materia.id"
+        @delete-curso="handleDeleteCurso" />
     </div>
   </div>
 </template>
@@ -55,10 +42,10 @@ const toggleExpanded = () => {
 }
 
 const confirmDelete = () => {
-  const hasCoursesMessage = props.materia.cursos.length > 0 
+  const hasCoursesMessage = props.materia.cursos.length > 0
     ? `\n\nEsta materia tiene ${props.materia.cursos.length} curso(s) que también serán eliminados.`
     : ''
-  
+
   if (confirm(`¿Estás seguro de que quieres eliminar la materia "${props.materia.nombre}"?${hasCoursesMessage}`)) {
     emit('delete-materia', props.materia.id)
   }

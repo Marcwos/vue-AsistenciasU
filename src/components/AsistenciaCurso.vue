@@ -16,44 +16,22 @@
 
       <div class="filtros">
         <div class="filtros-izquierda">
-          <input
-            type="text"
-            v-model="busqueda"
-            placeholder="Buscar estudiante..."
-            class="input-busqueda"
-          />
+          <input type="text" v-model="busqueda" placeholder="Buscar estudiante..." class="input-busqueda" />
           <div class="selector-fecha">
             <label for="fecha-consulta">Ver asistencia del:</label>
-            <input
-              type="date"
-              id="fecha-consulta"
-              v-model="fechaConsulta"
-              @change="cargarAsistenciaFecha"
-              class="input-fecha"
-            />
+            <input type="date" id="fecha-consulta" v-model="fechaConsulta" @change="cargarAsistenciaFecha"
+              class="input-fecha" />
           </div>
         </div>
         <div class="filtros-derecha">
-          <button 
-            v-if="!modoConsulta" 
-            class="btn-guardar-asistencia" 
-            @click="guardarAsistencia"
-            :disabled="asistenciaGuardadaHoy"
-          >
+          <button v-if="!modoConsulta" class="btn-guardar-asistencia" @click="guardarAsistencia"
+            :disabled="asistenciaGuardadaHoy">
             💾 {{ asistenciaGuardadaHoy ? 'Asistencia Guardada' : 'Guardar Asistencia' }}
           </button>
-          <button 
-            v-if="asistenciaGuardadaHoy && !modoConsulta" 
-            class="btn-editar-asistencia" 
-            @click="editarAsistencia"
-          >
+          <button v-if="asistenciaGuardadaHoy && !modoConsulta" class="btn-editar-asistencia" @click="editarAsistencia">
             ✏️ Editar Asistencia
           </button>
-          <button 
-            v-if="modoConsulta" 
-            class="btn-volver-hoy" 
-            @click="volverAsistenciaHoy"
-          >
+          <button v-if="modoConsulta" class="btn-volver-hoy" @click="volverAsistenciaHoy">
             📅 Volver a Hoy
           </button>
         </div>
@@ -81,21 +59,12 @@
             <tr v-for="estudiante in estudiantesFiltrados" :key="estudiante.id">
               <td class="nombre-estudiante">{{ estudiante.nombre }}</td>
               <td class="celda-falta">
-                <input
-                  type="checkbox"
-                  v-model="estudiante.falta"
-                  @change="actualizarEstado(estudiante)"
-                  class="checkbox-falta"
-                  :disabled="modoConsulta"
-                />
+                <input type="checkbox" v-model="estudiante.falta" @change="actualizarEstado(estudiante)"
+                  class="checkbox-falta" :disabled="modoConsulta" />
               </td>
               <td class="celda-tardanza">
-                <select
-                  v-model="estudiante.tardanza"
-                  :disabled="estudiante.falta || modoConsulta"
-                  class="select-tardanza"
-                  @change="actualizarEstado(estudiante)"
-                >
+                <select v-model="estudiante.tardanza" :disabled="estudiante.falta || modoConsulta"
+                  class="select-tardanza" @change="actualizarEstado(estudiante)">
                   <option value="">Sin tardanza</option>
                   <option value="5min">5 min</option>
                   <option value="10min">10 min</option>
@@ -125,12 +94,8 @@
     </div>
 
     <!-- Sidebar para agregar estudiantes -->
-    <SidebarEstudiantes 
-      :is-open="sidebarOpen" 
-      :curso-nombre="nombreCurso"
-      @close="closeSidebar"
-      @estudiantes-updated="handleEstudiantesUpdated"
-    />
+    <SidebarEstudiantes :is-open="sidebarOpen" :curso-nombre="nombreCurso" @close="closeSidebar"
+      @estudiantes-updated="handleEstudiantesUpdated" />
   </main>
 </template>
 
@@ -178,7 +143,7 @@ const loadEstudiantes = () => {
     estudiantes.value = []
     return
   }
-  
+
   const userKey = `estudiantes-${currentUser}-${props.nombreCurso}`
   const stored = localStorage.getItem(userKey)
   if (stored) {
@@ -196,7 +161,7 @@ const saveEstudiantes = () => {
     console.warn('No hay usuario logueado')
     return
   }
-  
+
   const userKey = `estudiantes-${currentUser}-${props.nombreCurso}`
   localStorage.setItem(userKey, JSON.stringify(estudiantes.value))
 }
@@ -255,14 +220,14 @@ const guardarAsistencia = () => {
       estado: e.falta ? 'ausente' : (e.tardanza ? `tardío (${e.tardanza})` : 'presente')
     }))
   }
-  
+
   const currentUser = getCurrentUser()
   const historialKey = `historial-asistencia-${currentUser}`
   const historial = JSON.parse(localStorage.getItem(historialKey) || '[]')
-  
+
   // Verificar si ya existe asistencia para hoy
   const asistenciaHoyIndex = historial.findIndex(a => a.fecha === fecha && a.curso === props.nombreCurso)
-  
+
   if (asistenciaHoyIndex >= 0) {
     // Actualizar asistencia existente
     historial[asistenciaHoyIndex] = asistenciaData
@@ -270,10 +235,10 @@ const guardarAsistencia = () => {
     // Agregar nueva asistencia
     historial.push(asistenciaData)
   }
-  
+
   localStorage.setItem(historialKey, JSON.stringify(historial))
   asistenciaGuardadaHoy.value = true
-  
+
   alert('Asistencia guardada correctamente')
 }
 
@@ -282,14 +247,14 @@ const cargarAsistenciaFecha = () => {
     volverAsistenciaHoy()
     return
   }
-  
+
   const currentUser = getCurrentUser()
   const historialKey = `historial-asistencia-${currentUser}`
   const historial = JSON.parse(localStorage.getItem(historialKey) || '[]')
-  
+
   const fechaSeleccionada = new Date(fechaConsulta.value).toLocaleDateString('es-ES')
   const asistenciaFecha = historial.find(a => a.fecha === fechaSeleccionada && a.curso === props.nombreCurso)
-  
+
   if (asistenciaFecha) {
     modoConsulta.value = true
     // Cargar estudiantes con su asistencia de esa fecha
@@ -299,7 +264,7 @@ const cargarAsistenciaFecha = () => {
         return {
           ...estudiante,
           falta: asistenciaEstudiante.estado === 'ausente',
-          tardanza: asistenciaEstudiante.estado.includes('tardío') ? 
+          tardanza: asistenciaEstudiante.estado.includes('tardío') ?
             asistenciaEstudiante.estado.match(/\((.+)\)/)?.[1] || '' : ''
         }
       }
@@ -340,10 +305,10 @@ const verificarAsistenciaHoy = () => {
   const currentUser = getCurrentUser()
   const historialKey = `historial-asistencia-${currentUser}`
   const historial = JSON.parse(localStorage.getItem(historialKey) || '[]')
-  
+
   const asistenciaHoy = historial.find(a => a.fecha === fecha && a.curso === props.nombreCurso)
   asistenciaGuardadaHoy.value = !!asistenciaHoy
-  
+
   if (asistenciaHoy) {
     // Cargar la asistencia del día actual
     const estudiantesConAsistencia = estudiantes.value.map(estudiante => {
@@ -352,7 +317,7 @@ const verificarAsistenciaHoy = () => {
         return {
           ...estudiante,
           falta: asistenciaEstudiante.estado === 'ausente',
-          tardanza: asistenciaEstudiante.estado.includes('tardío') ? 
+          tardanza: asistenciaEstudiante.estado.includes('tardío') ?
             asistenciaEstudiante.estado.match(/\((.+)\)/)?.[1] || '' : ''
         }
       }
@@ -701,29 +666,29 @@ onMounted(() => {
     padding: 20px;
     margin: 10px;
   }
-  
+
   .header-section {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .titulo-curso {
     font-size: 1.8rem;
   }
-  
+
   .tabla {
     font-size: 0.9rem;
   }
-  
+
   .tabla th,
   .tabla td {
     padding: 10px 8px;
   }
-  
+
   .resumen-asistencia {
     gap: 15px;
   }
-  
+
   .estadistica {
     min-width: 100px;
     padding: 15px;

@@ -148,16 +148,16 @@ function volverLogin() {
   .login-container {
     padding: 15px;
   }
-  
+
   .login-box {
     padding: 30px 25px;
     max-width: 350px;
   }
-  
+
   .uleam-logo {
     font-size: 28px;
   }
-  
+
   .uleam-sub {
     font-size: 13px;
   }
@@ -167,20 +167,20 @@ function volverLogin() {
   .login-container {
     padding: 10px;
   }
-  
+
   .login-box {
     padding: 25px 20px;
     max-width: 320px;
   }
-  
+
   .uleam-logo {
     font-size: 24px;
   }
-  
+
   .uleam-sub {
     font-size: 12px;
   }
-  
+
   .login-box input,
   .login-box button {
     padding: 10px;
@@ -193,11 +193,11 @@ function volverLogin() {
     padding: 20px 15px;
     max-width: 300px;
   }
-  
+
   .uleam-logo {
     font-size: 22px;
   }
-  
+
   .login-box input,
   .login-box button {
     padding: 8px;

@@ -12,6 +12,4 @@ const route = useRoute()
 const nombreCurso = route.params.nombre
 </script>
 
-<style scoped>
-    
-</style>
+<style scoped></style>

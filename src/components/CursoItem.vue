@@ -4,18 +4,10 @@
       <h6>{{ curso.nombre }}</h6>
     </div>
     <div class="curso-actions">
-      <button 
-        class="btn-asistencia"
-        @click="tomarAsistencia"
-        title="Tomar asistencia"
-      >
+      <button class="btn-asistencia" @click="tomarAsistencia" title="Tomar asistencia">
         📋
       </button>
-      <button 
-        class="btn-delete"
-        @click="confirmDelete"
-        title="Eliminar curso"
-      >
+      <button class="btn-delete" @click="confirmDelete" title="Eliminar curso">
         🗑️
       </button>
     </div>

@@ -85,13 +85,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ------------------ TITULOS ------------------ */
 h1 {
   text-align: center;
   color: #87d154;
 }
 
-/* ------------------ BOTONES E INPUTS ------------------ */
 button,
 .btn {
   background-color: #c21807;

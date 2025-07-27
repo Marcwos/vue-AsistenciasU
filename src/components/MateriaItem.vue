@@ -1,11 +1,11 @@
 <template>
-  <div class="materia-item">
-    <div class="materia-header" @click="toggleExpanded">
+  <div class="card-container mb-medium">
+    <div class="card-header" @click="toggleExpanded">
       <div class="materia-info">
         <h5>{{ materia.nombre }}</h5>
-        <span class="curso-count">{{ materia.cursos.length }} curso(s)</span>
+        <span class="text-small text-muted">{{ materia.cursos.length }} curso(s)</span>
       </div>
-      <div class="materia-actions">
+      <div class="card-actions">
         <button class="btn-expand" :class="{ expanded: materia.expanded }" @click.stop="toggleExpanded">
           ▼
         </button>
@@ -16,7 +16,7 @@
     </div>
 
     <div v-if="materia.expanded" class="cursos-container">
-      <div v-if="materia.cursos.length === 0" class="no-cursos">
+      <div v-if="materia.cursos.length === 0" class="text-center text-muted text-italic p-large">
         No hay cursos en esta materia
       </div>
       <CursoItem v-for="curso in materia.cursos" :key="curso.id" :curso="curso" :materia-id="materia.id"

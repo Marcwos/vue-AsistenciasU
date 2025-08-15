@@ -3,7 +3,7 @@
     <div class="login-box">
       <h1 class="uleam-logo">Uleam</h1>
       <p class="uleam-sub">
-        UNIVERSIDAD LAICA<br />
+        UNIVERSIDAD Manolo<br />
         ELOY ALFARO DE MANABÍ
       </p>
 
@@ -11,7 +11,7 @@
         <input v-focus type="email" v-model="correo" placeholder="Correo" required />
         <input type="password" v-model="clave" placeholder="Contraseña" required />
         <button type="submit">Ingresar</button><br />
-        <a href="#" class="olvide">¿Olvidó contraseña?</a>
+        <a href="#" class="olvide">¿Olvidó burro?</a>
         <a href="#" class="registro" @click.prevent="goToRegister">¿No tienes cuenta? Regístrate</a>
       </form>
     </div>

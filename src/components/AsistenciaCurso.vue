@@ -491,7 +491,7 @@ onMounted(() => {
 }
 
 .btn-editar-asistencia {
-  background: #ffc107;
+  background: #07ff5e;
   color: #212529;
   border: none;
   padding: 12px 20px;
